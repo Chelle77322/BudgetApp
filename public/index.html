@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#317EFB">
+  <link rel="shortcut icon" href="icons/1.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Glegoo&display=swap"
+    rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Arima Madurai&display=swap"
+    rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css">
+<!--Calls the manifest file and service worker file-->
+<link rel = "manifest" href ="manifest.webmanifest"/>
+  <title>Budgetary: A Budget App that updates in Real Time</title>
+</head>
+<body>
+  <div class="wrapper">
+    <header><h1 class = "h1">Budgetary</h1></header>
+    <div class="total">
+      <div class="total">Amount Available: $<span id="total">0</span></div>
+    </div>
+
+    <div class="form">
+      <input type="text" id="t-name" placeholder="Name of transaction" />
+      <input type="number" min="0" id="t-amount" placeholder="Transaction amount" />
+      <button id="add-btn"><i class="fa fa-plus buttons"></i> Add Funds</button>
+      <button id="sub-btn"><i class="fa fa-minus"></i> Subtract Funds</button>
+      <p class="error"></p>
+    </div>
+
+    <div class="transactions">
+      <table>
+        <thead>
+          <th>Transaction</th>
+          <th>Amount</th>
+        </thead>
+        <tbody id="tbody">
+          
+        </tbody>
+      </table>
+    </div>
+    
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type = "module" src = "./index.js"></script>
+  <!--Calls the indexedDB file-->
+  <script src = "dbindexed.js"></script>
+  <!--Add Service Worker Registration-->
+  <script>
+    (function(){
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/serviceworker.js").then(() =>
+      console.log("Service Worker has been registered successfully")).catch(error => console.log("The registration of Service Worker failed:" + error));
+    }
+  })
+  ();
+   
+  </script>
+</body>
+</html>

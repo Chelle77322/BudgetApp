@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set NODE_ENV=development && webpack serve --open "
+    "start": "set NODE_ENV=development && webpack serve --open ",
+    "lint": "eslint --fix"
   },
   "keywords": [
     "Budget",

@@ -2,7 +2,7 @@ let transactions = [];
 let myChart;
 
 //When the page loads it should fetch all existing transactions
-fetch("/api/index.js").then(response => {
+fetch("index").then(response => {
     return response.json();
   }).then(data => {
     // save db data on global variable
@@ -21,7 +21,7 @@ function populateTotal() {
 
   let totalEl = document.querySelector("#total");
   totalEl.textContent = total;
-  console.log(totalEl);
+  //console.log(totalEl);
 }
 
 function populateTable() {
@@ -53,7 +53,7 @@ function populateChart() {
 
   // create incremental values for chart
   let data = reversed.map(t => {
-    sum += parseInt(t.value);
+    sum += parseInt(t.valueOf);
     return sum;
   });
 
@@ -113,7 +113,7 @@ function sendTransaction(isAdding) {
   populateTotal();
   
   // also send to server
-  fetch("/api/transaction", {
+  fetch("/index/transaction", {
     method: "POST",
     body: JSON.stringify(transaction),
     headers: {

@@ -1,6 +1,6 @@
 let db;
 //connects to the indexed db
-const request = indexedDB.open('BudgetApp',1);
+const request = indexedDB.open('Budget App');
 
 //Now create the object store to store files in
 request.onupgradeneeded = function(event){
@@ -29,7 +29,8 @@ function saveRecord(record){
 const transObjectStore = transactions.objectStore('new_transactions');
 transObjectStore.add(record);
 }
-//Uploads indexEB data to the mongodb server when you have internet
+//Uploads indexDB data to the mongodb server when you have internet
+//This is where an error occurs
 function uploadTransaction(){
     const transactions = db.transactions(['new_transactions'], 'readwrite');
     const transObjectStore = transactions.objectStore('new_transactions');
@@ -38,7 +39,7 @@ function uploadTransaction(){
 //IF successful; the results property will hold all the data
 getAll.onsuccess = function() {
     if(getAll.result.length > 0 ){
-        fetch('/api/transaction/bulk', {
+        fetch('/transaction/bulk', {
             method: 'POST',
             body : JSON.stringify(getAll.result),
             headers: {
@@ -49,7 +50,7 @@ getAll.onsuccess = function() {
             if(ServerResponse.message){
                 throw new Error(ServerResponse);
             }
-            const transactions = db.transactions(['new_transactions'],'readwrite');
+            const transactions = transactions(['new_transactions'],'readwrite');
             const transObjectStore = transactions.objectStore('new_transactions');
             transObjectStore.clear();
             alert('All offline transactions have been submitted to Budget App');
